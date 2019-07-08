@@ -1,0 +1,33 @@
+<div *ngIf="!gameService.model">
+    <h1>Start new game</h1>
+    <form #newGameForm="ngForm">
+        <div class="form-group">
+            <label for="name">Your nickname:</label>
+            <input type="text" id="name" name="name" [(ngModel)]="playerName" class="form-control" required #pname="ngModel" #inputName />
+            <div *ngIf="pname.invalid && (pname.dirty || pname.touched) && pname.errors.required" class="text-danger">
+                Nickname is required.
+            </div>
+        </div>
+        <div class="form-group">
+            <button (click)="newGameForm.control.get('name').markAsDirty(); pname.valid && startClick()" class="btn btn-primary">Start</button>
+        </div>
+    </form>
+</div>
+<div *ngIf="gameService.model" class="full-height">
+    <h1>Player: {{ gameService.model.player }} / Step: {{ gameService.model.step }}</h1>
+    <table>
+        <tr *ngFor="let row of gameService.model.board; let i = index">
+            <td *ngFor="let cell of row; let j = index" (click)="cellClick(i, j)" [ngClass]="{'closed': cell.status==='Hidden', 'pending': cell.status==='Pending', 'open': cell.status=='Discovered' }">
+                <span *ngIf="cell.status==='Hidden'">#</span>
+                <span *ngIf="cell.status!=='Hidden'">{{cell.value}}</span>
+            </td>
+        </tr>
+    </table>
+    <div *ngIf="gameService.model.status==='Finished'">
+        You finshed the game with score {{ gameService.model.step }}
+    </div>
+    <br />
+    <p>
+        <button (click)="newGameClick()"class="btn btn-danger">Start new game</button>
+    </p>
+</div>

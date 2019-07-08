@@ -1,0 +1,18 @@
+<h1>High scores</h1>
+<div class="table-responsive">
+    <table class="table">
+        <tr>
+            <th>#</th>
+            <th>Player</th>
+            <th>Best score</th>
+        </tr>
+        <tr *ngFor="let player of playerService.list(); let i = index">
+            <td>{{i + 1}}</td>
+            <td>{{player.name}}</td>
+            <td>{{player.bestScore}}</td>
+        </tr>
+        <tr *ngIf="playerService.list().length === 0">
+            <td colspan="3" class="center">No data to display</td>
+        </tr>
+    </table>
+</div>

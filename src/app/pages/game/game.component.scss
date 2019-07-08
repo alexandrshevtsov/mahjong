@@ -1,0 +1,46 @@
+div.full-height {
+    height: calc(100vh);
+}
+
+td {
+    border: solid 1px red;
+    min-width: 40px;
+    text-align: center;
+    cursor: pointer;
+    height: calc((100vh - 160px) / 6);
+    width: calc((100vw - 300px) / 6);
+
+    &.pending {
+        background-color: blue;
+    }
+
+    &.closed {
+        background-color: black;
+    }
+
+    &.open {
+        background-color: yellow;
+
+        span {
+            color: black;
+        }
+    }
+
+    span {
+        color: white;
+    }
+}
+
+@media (max-width: 768px) {
+    div.full-height {
+        position: absolute;
+        top: 200px;
+        //padding-top: 120px;
+        height: calc(100vh - 200px);
+    }
+
+    td {
+        height: calc((100vh - 160px) / 6);
+        width: calc((100vw - 2px) / 6);
+    }
+}
